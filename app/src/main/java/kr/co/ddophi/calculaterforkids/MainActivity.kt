@@ -1,9 +1,15 @@
 package kr.co.ddophi.calculaterforkids
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.animation.TranslateAnimation
+import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,13 +18,32 @@ class MainActivity : AppCompatActivity() {
     private val multiplyOperator = 12
     private val divideOperator = 13
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         hideKeyboard()
-        customKeyboard()
+        btnSetting()
+
+        blank1.setOnClickListener {
+
+        }
     }
+
+    private fun plusAnim (view: EditText, num : Int) {
+
+    }
+    private fun minusAnim (view: EditText, num : Int) {
+
+    }
+    private fun multiplyAnim (view: EditText, num : Int) {
+
+    }
+    private fun divideAnim (view: EditText, num : Int) {
+
+    }
+
 
     //안드로이드 키보드 숨기기
     private fun hideKeyboard(){
@@ -30,152 +55,67 @@ class MainActivity : AppCompatActivity() {
         operator.showSoftInputOnFocus = false
     }
 
-    //안드로이드 키보드 대신 직접 만든 키보드
-    private fun customKeyboard() {
-        firstNumber.setOnFocusChangeListener { v, hasFocus ->
-            customKeyboardNumber(firstNumber, hasFocus)
-        }
-        secondNumber.setOnFocusChangeListener { v, hasFocus ->
-            customKeyboardNumber(secondNumber, hasFocus)
-        }
-        operator.setOnFocusChangeListener { v, hasFocus ->
-            customKeyboardOperator(operator, hasFocus)
-        }
-        btnResult.setOnClickListener {
-            showResult()
-        }
-    }
+    //커스텀 키보드 버튼 동작 세팅(다 작성 안하고 = 눌렀을 때 알림 필요)
+    private fun btnSetting () {
+        val btnNumbers = arrayListOf<ImageButton>(btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine)
 
-    //계산 결과 보여주기
-    private fun showResult(){
-        val firstNum = firstNumber.text.toString().toInt()
-        val secondNum = secondNumber.text.toString().toInt()
-        val op = operator.text.toString()
-        var result : Int? = null
-
-        when(op){
-            "＋" -> {
-                result = firstNum + secondNum
-            }
-            "－" -> {
-                result = firstNum - secondNum
-            }
-            "×" -> {
-                result = firstNum * secondNum
-            }
-            "÷" -> {
-                result = firstNum / secondNum
+        for((idx, btn) in btnNumbers.withIndex()){
+            btn.setOnClickListener {
+                if (firstNumber.hasFocus()) {
+                    firstNumber.setText(idx.toString())
+                    moveFocus(firstNumber)
+                    imgAppearAnim(firstNumber, idx)
+                }else if(secondNumber.hasFocus()){
+                    secondNumber.setText(idx.toString())
+                    moveFocus(secondNumber)
+                    imgAppearAnim(secondNumber, idx)
+                }else if(!firstNumber.hasFocus() && !secondNumber.hasFocus() && !operator.hasFocus()){
+                    clearAll()
+                    firstNumber.setText(idx.toString())
+                    moveFocus(firstNumber)
+                    imgAppearAnim(firstNumber, idx)
+                }
             }
         }
 
-        if(result == null){
-
-        }else
-            txtResult.text = "=   ${result}"
-    }
-
-    //숫자 입력했을 떄의 동작
-    private fun customKeyboardNumber(view: EditText, hasFocus :Boolean){
-        btnOne.setOnClickListener {
-            if(hasFocus) {
-                view.setText("1")
-                moveFocus(view)
-                imgAppearAnim(view, 1)
-            }
-        }
-        btnTwo.setOnClickListener {
-            if(hasFocus) {
-                view.setText("2")
-                moveFocus(view)
-                imgAppearAnim(view, 2)
-            }
-        }
-        btnThree.setOnClickListener {
-            if(hasFocus) {
-                view.setText("3")
-                moveFocus(view)
-                imgAppearAnim(view, 3)
-            }
-        }
-        btnFour.setOnClickListener {
-            if(hasFocus) {
-                view.setText("4")
-                moveFocus(view)
-                imgAppearAnim(view, 4)
-            }
-        }
-        btnFive.setOnClickListener {
-            if(hasFocus) {
-                view.setText("5")
-                moveFocus(view)
-                imgAppearAnim(view, 5)
-            }
-        }
-        btnSix.setOnClickListener {
-            if(hasFocus) {
-                view.setText("6")
-                moveFocus(view)
-                imgAppearAnim(view, 6)
-            }
-        }
-        btnSeven.setOnClickListener {
-            if(hasFocus) {
-                view.setText("7")
-                moveFocus(view)
-                imgAppearAnim(view, 7)
-            }
-        }
-        btnEight.setOnClickListener {
-            if(hasFocus) {
-                view.setText("8")
-                moveFocus(view)
-                imgAppearAnim(view, 8)
-            }
-        }
-        btnNine.setOnClickListener {
-            if(hasFocus) {
-                view.setText("9")
-                moveFocus(view)
-                imgAppearAnim(view, 9)
-            }
-        }
-        btnZero.setOnClickListener {
-            if(hasFocus) {
-                view.setText("0")
-                moveFocus(view)
-                imgAppearAnim(view, 0)
-            }
-        }
-    }
-
-    //연산자 입력했을 떄의 동작
-    private fun customKeyboardOperator (view: EditText, hasFocus: Boolean){
         btnPlus.setOnClickListener {
-            if(hasFocus) {
-                view.setText("＋")
-                moveFocus(view)
-                imgAppearAnim(view, plusOperator)
+            if(operator.hasFocus()) {
+                operator.setText("＋")
+                moveFocus(operator)
+                imgAppearAnim(operator, plusOperator)
             }
         }
         btnMinus.setOnClickListener {
-            if(hasFocus) {
-                view.setText("－")
-                moveFocus(view)
-                imgAppearAnim(view, minusOperator)
+            if(operator.hasFocus()) {
+                operator.setText("－")
+                moveFocus(operator)
+                imgAppearAnim(operator, minusOperator)
             }
         }
         btnMultiply.setOnClickListener {
-            if(hasFocus) {
-                view.setText("×")
-                moveFocus(view)
-                imgAppearAnim(view, multiplyOperator)
+            if(operator.hasFocus()) {
+                operator.setText("×")
+                moveFocus(operator)
+                imgAppearAnim(operator, multiplyOperator)
             }
         }
         btnDivide.setOnClickListener {
-            if(hasFocus) {
-                view.setText("÷")
-                moveFocus(view)
-                imgAppearAnim(view, divideOperator)
+            if(operator.hasFocus()) {
+                operator.setText("÷")
+                moveFocus(operator)
+                imgAppearAnim(operator, divideOperator)
+            }
+        }
+
+        btnResult.setOnClickListener {
+            if(firstNumber.text.toString() == ""){
+
+            }else if(operator.text.toString() == ""){
+
+            }else if(secondNumber.text.toString() == ""){
+
+            }else{
+                showResult()
             }
         }
     }
@@ -195,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Edit text 값에 따라서 이미지 보여주기
+    //Edit text 값에 따라서 이미지 보여주기 (0일 때의 그림 필요)
     private fun imgAppearAnim(view: EditText, num : Int) {
         val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
         when(num){
@@ -454,23 +394,27 @@ class MainActivity : AppCompatActivity() {
             plusOperator->{
                 txtOperator.startAnimation(animAppear)
                 txtOperator.text = "＋"
+                txtOperator.visibility = View.VISIBLE
             }
             minusOperator->{
                 txtOperator.startAnimation(animAppear)
                 txtOperator.text = "－"
+                txtOperator.visibility = View.VISIBLE
             }
             multiplyOperator->{
                 txtOperator.startAnimation(animAppear)
                 txtOperator.text = "×"
+                txtOperator.visibility = View.VISIBLE
             }
             divideOperator->{
                 txtOperator.startAnimation(animAppear)
                 txtOperator.text = "÷"
+                txtOperator.visibility = View.VISIBLE
             }
         }
     }
 
-    //화면의 이미지 모두 지워주기
+    //해당하는 쪽의 그림 지워주기
     private fun clearAllImg(view: EditText){
         if(view == firstNumber){
             imgFirst0.alpha = 0.0f
@@ -500,5 +444,47 @@ class MainActivity : AppCompatActivity() {
             imgSecond11.alpha = 0.0f
             imgSecond12.alpha = 0.0f
         }
+    }
+
+    //화면에 그려진 것들을 모두 지워주기
+    private fun clearAll() {
+        clearAllImg(firstNumber)
+        clearAllImg(secondNumber)
+        txtOperator.visibility = View.INVISIBLE
+        txtResult.visibility = View.INVISIBLE
+        txtResultNum.text = ""
+        firstNumber.setText("")
+        operator.setText("")
+        secondNumber.setText("")
+    }
+
+    //계산 결과 보여주기
+    private fun showResult(){
+        val firstNum = firstNumber.text.toString().toInt()
+        val secondNum = secondNumber.text.toString().toInt()
+        val op = operator.text.toString()
+        var result : Int? = null
+
+        when(op){
+            "＋" -> {
+                result = firstNum + secondNum
+            }
+            "－" -> {
+                result = firstNum - secondNum
+            }
+            "×" -> {
+                result = firstNum * secondNum
+            }
+            "÷" -> {
+                result = firstNum / secondNum
+            }
+        }
+
+        val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
+        txtResult.startAnimation(animAppear)
+        txtResult.visibility = View.VISIBLE
+        txtResultNum.startAnimation(animAppear)
+        txtResultNum.text = "$result"
+
     }
 }
