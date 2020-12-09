@@ -7,16 +7,17 @@ import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
     private val plusOperator = 10
     private val minusOperator = 11
     private val multiplyOperator = 12
     private val divideOperator = 13
+    var isAnimRunning = false
+    lateinit var resultAnimJob : Job
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,23 +28,9 @@ class MainActivity : AppCompatActivity() {
         btnSetting()
 
         blank1.setOnClickListener {
-
+           clearBottomImg()
         }
     }
-
-    private fun plusAnim (view: EditText, num : Int) {
-
-    }
-    private fun minusAnim (view: EditText, num : Int) {
-
-    }
-    private fun multiplyAnim (view: EditText, num : Int) {
-
-    }
-    private fun divideAnim (view: EditText, num : Int) {
-
-    }
-
 
     //안드로이드 키보드 숨기기
     private fun hideKeyboard(){
@@ -62,10 +49,12 @@ class MainActivity : AppCompatActivity() {
         for((idx, btn) in btnNumbers.withIndex()){
             btn.setOnClickListener {
                 if (firstNumber.hasFocus()) {
+                    clearBottomImg()
                     firstNumber.setText(idx.toString())
                     moveFocus(firstNumber)
                     imgAppearAnim(firstNumber, idx)
                 }else if(secondNumber.hasFocus()){
+                    clearBottomImg()
                     secondNumber.setText(idx.toString())
                     moveFocus(secondNumber)
                     imgAppearAnim(secondNumber, idx)
@@ -80,6 +69,7 @@ class MainActivity : AppCompatActivity() {
 
         btnPlus.setOnClickListener {
             if(operator.hasFocus()) {
+                clearBottomImg()
                 operator.setText("＋")
                 moveFocus(operator)
                 imgAppearAnim(operator, plusOperator)
@@ -87,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         }
         btnMinus.setOnClickListener {
             if(operator.hasFocus()) {
+                clearBottomImg()
                 operator.setText("－")
                 moveFocus(operator)
                 imgAppearAnim(operator, minusOperator)
@@ -94,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         }
         btnMultiply.setOnClickListener {
             if(operator.hasFocus()) {
+                clearBottomImg()
                 operator.setText("×")
                 moveFocus(operator)
                 imgAppearAnim(operator, multiplyOperator)
@@ -101,6 +93,7 @@ class MainActivity : AppCompatActivity() {
         }
         btnDivide.setOnClickListener {
             if(operator.hasFocus()) {
+                clearBottomImg()
                 operator.setText("÷")
                 moveFocus(operator)
                 imgAppearAnim(operator, divideOperator)
@@ -114,7 +107,8 @@ class MainActivity : AppCompatActivity() {
 
             }else if(secondNumber.text.toString() == ""){
 
-            }else{
+            }else if(!isAnimRunning){
+                clearBottomImg()
                 showResult()
             }
         }
@@ -140,7 +134,7 @@ class MainActivity : AppCompatActivity() {
         val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
         when(num){
             1->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst4.startAnimation(animAppear)
                     imgFirst4.alpha = 1.0f
@@ -151,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             2->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst9.startAnimation(animAppear)
                     imgFirst9.alpha = 1.0f
@@ -166,7 +160,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             3->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst5.startAnimation(animAppear)
                     imgFirst5.alpha = 1.0f
@@ -185,7 +179,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             4->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst3.startAnimation(animAppear)
                     imgFirst3.alpha = 1.0f
@@ -208,7 +202,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             5->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst2.startAnimation(animAppear)
                     imgFirst2.alpha = 1.0f
@@ -235,7 +229,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             6->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst1.startAnimation(animAppear)
                     imgFirst1.alpha = 1.0f
@@ -266,7 +260,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             7->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst0.startAnimation(animAppear)
                     imgFirst0.alpha = 1.0f
@@ -301,7 +295,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             8->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst0.startAnimation(animAppear)
                     imgFirst0.alpha = 1.0f
@@ -340,7 +334,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             9->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
                     imgFirst0.startAnimation(animAppear)
                     imgFirst0.alpha = 1.0f
@@ -383,7 +377,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             0->{
-                clearAllImg(view)
+                clearTopImg(view)
                 if(view == firstNumber) {
 
                 }
@@ -414,8 +408,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //해당하는 쪽의 그림 지워주기
-    private fun clearAllImg(view: EditText){
+    //화면 위쪽에 그려진 것들 지워주기 - 왼쪽/오른쪽 선택
+    private fun clearTopImg(view: EditText){
         if(view == firstNumber){
             imgFirst0.alpha = 0.0f
             imgFirst1.alpha = 0.0f
@@ -446,13 +440,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //화면에 그려진 것들을 모두 지워주기
-    private fun clearAll() {
-        clearAllImg(firstNumber)
-        clearAllImg(secondNumber)
-        txtOperator.visibility = View.INVISIBLE
+    //화면 아래쪽에 그려진 것들 지워주기
+    private fun clearBottomImg() {
+        val resultImg = arrayListOf(testImg0, testImg1, testImg2, testImg3, testImg4, testImg5, testImg6, testImg7, testImg8)
+        if(isAnimRunning){
+            resultAnimJob.cancel()
+            isAnimRunning = false
+        }
         txtResult.visibility = View.INVISIBLE
         txtResultNum.text = ""
+        for(img in resultImg)
+            img.alpha = 0.0f
+    }
+
+    //화면에 그려진 것들을 모두 지워주기
+    private fun clearAll() {
+        clearBottomImg()
+        clearTopImg(firstNumber)
+        clearTopImg(secondNumber)
+        txtOperator.visibility = View.INVISIBLE
         firstNumber.setText("")
         operator.setText("")
         secondNumber.setText("")
@@ -464,27 +470,84 @@ class MainActivity : AppCompatActivity() {
         val secondNum = secondNumber.text.toString().toInt()
         val op = operator.text.toString()
         var result : Int? = null
+        val calculateAnim = CalculateAnimation()
 
         when(op){
             "＋" -> {
                 result = firstNum + secondNum
+                calculateAnim.plus(firstNum, secondNum, result)
             }
             "－" -> {
                 result = firstNum - secondNum
+                calculateAnim.minus(firstNum, secondNum, result)
             }
             "×" -> {
                 result = firstNum * secondNum
+                calculateAnim.multiply(firstNum, secondNum, result)
             }
             "÷" -> {
                 result = firstNum / secondNum
+                calculateAnim.divide(firstNum, secondNum, result)
             }
         }
+    }
 
-        val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
-        txtResult.startAnimation(animAppear)
-        txtResult.visibility = View.VISIBLE
-        txtResultNum.startAnimation(animAppear)
-        txtResultNum.text = "$result"
+    //계산 과정 보여주는 애니메이션 모음
+    inner class CalculateAnimation() {
 
+        //더하기 애니메이션
+        fun plus (firstNum : Int, secondNum : Int, result: Int) {
+            resultAnimJob = GlobalScope.launch(Dispatchers.Main) {
+                isAnimRunning = true
+                appearAnim(testImg1, firstNum)
+                delay(1000)
+                appearAnim(testImg2, secondNum)
+                delay(1000)
+                appearAnim(result)
+                delay(1000)
+                isAnimRunning = false
+            }
+        }
+        //빼기 애니메이션
+        fun minus (firstNum : Int, secondNum : Int, result: Int) {
+
+        }
+        //곱하기 애니메이션
+        fun multiply (firstNum : Int, secondNum : Int, result: Int) {
+
+        }
+        //나누기 애니메이션
+        fun divide (firstNum : Int, secondNum : Int, result: Int) {
+
+        }
+
+        //아래쪽 부분에 결과 그림 보여주기
+        private fun appearAnim(imgPos : ImageView, num: Int){
+            when(num){
+                1 -> imgPos.setImageResource(R.drawable.test_img1)
+                2 -> imgPos.setImageResource(R.drawable.test_img2)
+                3 -> imgPos.setImageResource(R.drawable.test_img3)
+                4 -> imgPos.setImageResource(R.drawable.test_img4)
+                5 -> imgPos.setImageResource(R.drawable.test_img5)
+                6 -> imgPos.setImageResource(R.drawable.test_img6)
+                7 -> imgPos.setImageResource(R.drawable.test_img7)
+                8 -> imgPos.setImageResource(R.drawable.test_img8)
+                9 -> imgPos.setImageResource(R.drawable.test_img9)
+            }
+            val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
+            imgPos.startAnimation(animAppear)
+            imgPos.alpha = 1.0f
+        }
+
+        //아래쪽 부분에 결과값 보여주기
+        private fun appearAnim(num: Int){
+            val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
+            txtResult.startAnimation(animAppear)
+            txtResult.visibility = View.VISIBLE
+            txtResultNum.startAnimation(animAppear)
+            txtResultNum.text = "$num"
+        }
     }
 }
+
+
