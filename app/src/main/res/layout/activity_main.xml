@@ -501,6 +501,14 @@
             app:layout_constraintTop_toBottomOf="@+id/testImg2"
             app:srcCompat="@drawable/test_img9" />
 
+        <TextView
+            android:id="@+id/numForMinus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/testImg6"
+            app:layout_constraintEnd_toEndOf="@+id/testImg6"
+            app:layout_constraintStart_toEndOf="@+id/testImg5" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout

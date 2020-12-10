@@ -447,6 +447,7 @@ class MainActivity : AppCompatActivity() {
             resultAnimJob.cancel()
             isAnimRunning = false
         }
+        numForMinus.text = ""
         txtResult.visibility = View.INVISIBLE
         txtResultNum.text = ""
         for(img in resultImg)
@@ -499,48 +500,169 @@ class MainActivity : AppCompatActivity() {
         fun plus (firstNum : Int, secondNum : Int, result: Int) {
             resultAnimJob = GlobalScope.launch(Dispatchers.Main) {
                 isAnimRunning = true
-                appearAnim(testImg1, firstNum)
+                appearImg(testImg1, firstNum)
+                appearImg(testImg2, secondNum)
                 delay(1000)
-                appearAnim(testImg2, secondNum)
-                delay(1000)
-                appearAnim(result)
+                appearResult(result)
                 delay(1000)
                 isAnimRunning = false
             }
         }
         //빼기 애니메이션
         fun minus (firstNum : Int, secondNum : Int, result: Int) {
-
+            var num = firstNum
+            resultAnimJob = GlobalScope.launch(Dispatchers.Main){
+                isAnimRunning = true
+                appearImg(testImg6, num)
+                numForMinus.text = "$num"
+                delay(700)
+                for(i in 0 until secondNum){
+                    appearImg(testImg6, --num)
+                    numForMinus.text = "$num"
+                    delay(700)
+                }
+                appearResult(result)
+                delay(1000)
+                isAnimRunning = false
+            }
         }
         //곱하기 애니메이션
         fun multiply (firstNum : Int, secondNum : Int, result: Int) {
-
+            resultAnimJob = GlobalScope.launch(Dispatchers.Main) {
+                isAnimRunning = true
+                when(secondNum){
+                    1 -> appearImg(testImg6, firstNum)
+                    2 -> {
+                        appearImg(testImg1, firstNum)
+                        delay(700)
+                        appearImg(testImg2, firstNum)
+                    }
+                    3 -> {
+                        appearImg(testImg5, firstNum)
+                        delay(700)
+                        appearImg(testImg6, firstNum)
+                        delay(700)
+                        appearImg(testImg7, firstNum)
+                    }
+                    4 -> {
+                        appearImg(testImg0, firstNum)
+                        delay(700)
+                        appearImg(testImg1, firstNum)
+                        delay(700)
+                        appearImg(testImg2, firstNum)
+                        delay(700)
+                        appearImg(testImg3, firstNum)
+                    }
+                    5 -> {
+                        appearImg(testImg1, firstNum)
+                        delay(700)
+                        appearImg(testImg2, firstNum)
+                        delay(700)
+                        appearImg(testImg5, firstNum)
+                        delay(700)
+                        appearImg(testImg6, firstNum)
+                        delay(700)
+                        appearImg(testImg7, firstNum)
+                    }
+                    6 -> {
+                        appearImg(testImg1, firstNum)
+                        delay(700)
+                        appearImg(testImg2, firstNum)
+                        delay(700)
+                        appearImg(testImg4, firstNum)
+                        delay(700)
+                        appearImg(testImg5, firstNum)
+                        delay(700)
+                        appearImg(testImg7, firstNum)
+                        delay(700)
+                        appearImg(testImg8, firstNum)
+                    }
+                    7 -> {
+                        appearImg(testImg0, firstNum)
+                        delay(700)
+                        appearImg(testImg1, firstNum)
+                        delay(700)
+                        appearImg(testImg2, firstNum)
+                        delay(700)
+                        appearImg(testImg3, firstNum)
+                        delay(700)
+                        appearImg(testImg5, firstNum)
+                        delay(700)
+                        appearImg(testImg6, firstNum)
+                        delay(700)
+                        appearImg(testImg7, firstNum)
+                    }
+                    8 -> {
+                        appearImg(testImg0, firstNum)
+                        delay(700)
+                        appearImg(testImg1, firstNum)
+                        delay(700)
+                        appearImg(testImg2, firstNum)
+                        delay(700)
+                        appearImg(testImg3, firstNum)
+                        delay(700)
+                        appearImg(testImg4, firstNum)
+                        delay(700)
+                        appearImg(testImg5, firstNum)
+                        delay(700)
+                        appearImg(testImg7, firstNum)
+                        delay(700)
+                        appearImg(testImg8, firstNum)
+                    }
+                    9 -> {
+                        appearImg(testImg0, firstNum)
+                        delay(700)
+                        appearImg(testImg1, firstNum)
+                        delay(700)
+                        appearImg(testImg2, firstNum)
+                        delay(700)
+                        appearImg(testImg3, firstNum)
+                        delay(700)
+                        appearImg(testImg4, firstNum)
+                        delay(700)
+                        appearImg(testImg5, firstNum)
+                        delay(700)
+                        appearImg(testImg6, firstNum)
+                        delay(700)
+                        appearImg(testImg7, firstNum)
+                        delay(700)
+                        appearImg(testImg8, firstNum)
+                    }
+                }
+                delay(700)
+                appearResult(result)
+                delay(1000)
+                isAnimRunning = false
+            }
         }
         //나누기 애니메이션
         fun divide (firstNum : Int, secondNum : Int, result: Int) {
 
         }
 
+
         //아래쪽 부분에 결과 그림 보여주기
-        private fun appearAnim(imgPos : ImageView, num: Int){
-            when(num){
-                1 -> imgPos.setImageResource(R.drawable.test_img1)
-                2 -> imgPos.setImageResource(R.drawable.test_img2)
-                3 -> imgPos.setImageResource(R.drawable.test_img3)
-                4 -> imgPos.setImageResource(R.drawable.test_img4)
-                5 -> imgPos.setImageResource(R.drawable.test_img5)
-                6 -> imgPos.setImageResource(R.drawable.test_img6)
-                7 -> imgPos.setImageResource(R.drawable.test_img7)
-                8 -> imgPos.setImageResource(R.drawable.test_img8)
-                9 -> imgPos.setImageResource(R.drawable.test_img9)
+        private fun appearImg(imgPos : ImageView, num: Int){
+            when {
+                num > 0 -> imgPos.alpha = 1.0f
+                num < 0 -> imgPos.alpha = 0.3f
+                else -> imgPos.alpha = 0.0f
             }
-            val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
-            imgPos.startAnimation(animAppear)
-            imgPos.alpha = 1.0f
+            when(num){
+                -1, 1 -> imgPos.setImageResource(R.drawable.test_img1)
+                -2, 2 -> imgPos.setImageResource(R.drawable.test_img2)
+                -3, 3 -> imgPos.setImageResource(R.drawable.test_img3)
+                -4, 4 -> imgPos.setImageResource(R.drawable.test_img4)
+                -5, 5 -> imgPos.setImageResource(R.drawable.test_img5)
+                -6, 6 -> imgPos.setImageResource(R.drawable.test_img6)
+                -7, 7 -> imgPos.setImageResource(R.drawable.test_img7)
+                -8, 8 -> imgPos.setImageResource(R.drawable.test_img8)
+                -9, 9 -> imgPos.setImageResource(R.drawable.test_img9)
+            }
         }
 
         //아래쪽 부분에 결과값 보여주기
-        private fun appearAnim(num: Int){
+        private fun appearResult(num: Int){
             val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
             txtResult.startAnimation(animAppear)
             txtResult.visibility = View.VISIBLE
