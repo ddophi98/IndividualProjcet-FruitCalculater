@@ -2,6 +2,7 @@ package kr.co.ddophi.calculaterforkids
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -86,6 +87,10 @@ class MainActivity : AppCompatActivity() {
                 operator.setText("×")
                 moveFocus(operator)
                 imgAppearAnim(operator, multiplyOperator)
+
+                if(secondNumber.text.isNotEmpty()){
+                    imgAppearAnim(secondNumber, secondNumber.text.toString().toInt())
+                }
             }
         }
         btnDivide.setOnClickListener {
@@ -94,6 +99,10 @@ class MainActivity : AppCompatActivity() {
                 operator.setText("÷")
                 moveFocus(operator)
                 imgAppearAnim(operator, divideOperator)
+
+                if(secondNumber.text.isNotEmpty()){
+                    imgAppearAnim(secondNumber, secondNumber.text.toString().toInt())
+                }
             }
         }
 
@@ -132,245 +141,173 @@ class MainActivity : AppCompatActivity() {
         when(num){
             1->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst4.startAnimation(animAppear)
-                    imgFirst4.alpha = 1.0f
-                }
-                else {
-                    imgSecond4.startAnimation(animAppear)
-                    imgSecond4.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "1"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img1)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img1)
+                    }
                 }
             }
             2->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst9.startAnimation(animAppear)
-                    imgFirst9.alpha = 1.0f
-                    imgFirst10.startAnimation(animAppear)
-                    imgFirst10.alpha = 1.0f
-                }
-                else {
-                    imgSecond11.startAnimation(animAppear)
-                    imgSecond11.alpha = 1.0f
-                    imgSecond12.startAnimation(animAppear)
-                    imgSecond12.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "2"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img2)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img2)
+                    }
                 }
             }
             3->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst5.startAnimation(animAppear)
-                    imgFirst5.alpha = 1.0f
-                    imgFirst9.startAnimation(animAppear)
-                    imgFirst9.alpha = 1.0f
-                    imgFirst10.startAnimation(animAppear)
-                    imgFirst10.alpha = 1.0f
-                }
-                else {
-                    imgSecond4.startAnimation(animAppear)
-                    imgSecond4.alpha = 1.0f
-                    imgSecond9.startAnimation(animAppear)
-                    imgSecond9.alpha = 1.0f
-                    imgSecond10.startAnimation(animAppear)
-                    imgSecond10.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "3"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img3)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img3)
+                    }
                 }
             }
             4->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst3.startAnimation(animAppear)
-                    imgFirst3.alpha = 1.0f
-                    imgFirst5.startAnimation(animAppear)
-                    imgFirst5.alpha = 1.0f
-                    imgFirst9.startAnimation(animAppear)
-                    imgFirst9.alpha = 1.0f
-                    imgFirst10.startAnimation(animAppear)
-                    imgFirst10.alpha = 1.0f
-                }
-                else {
-                    imgSecond3.startAnimation(animAppear)
-                    imgSecond3.alpha = 1.0f
-                    imgSecond5.startAnimation(animAppear)
-                    imgSecond5.alpha = 1.0f
-                    imgSecond11.startAnimation(animAppear)
-                    imgSecond11.alpha = 1.0f
-                    imgSecond12.startAnimation(animAppear)
-                    imgSecond12.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "4"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img4)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img4)
+                    }
                 }
             }
             5->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst2.startAnimation(animAppear)
-                    imgFirst2.alpha = 1.0f
-                    imgFirst5.startAnimation(animAppear)
-                    imgFirst5.alpha = 1.0f
-                    imgFirst8.startAnimation(animAppear)
-                    imgFirst8.alpha = 1.0f
-                    imgFirst9.startAnimation(animAppear)
-                    imgFirst9.alpha = 1.0f
-                    imgFirst10.startAnimation(animAppear)
-                    imgFirst10.alpha = 1.0f
-                }
-                else {
-                    imgSecond1.startAnimation(animAppear)
-                    imgSecond1.alpha = 1.0f
-                    imgSecond4.startAnimation(animAppear)
-                    imgSecond4.alpha = 1.0f
-                    imgSecond7.startAnimation(animAppear)
-                    imgSecond7.alpha = 1.0f
-                    imgSecond9.startAnimation(animAppear)
-                    imgSecond9.alpha = 1.0f
-                    imgSecond10.startAnimation(animAppear)
-                    imgSecond10.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "5"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img5)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img5)
+                    }
                 }
             }
             6->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst1.startAnimation(animAppear)
-                    imgFirst1.alpha = 1.0f
-                    imgFirst2.startAnimation(animAppear)
-                    imgFirst2.alpha = 1.0f
-                    imgFirst4.startAnimation(animAppear)
-                    imgFirst4.alpha = 1.0f
-                    imgFirst5.startAnimation(animAppear)
-                    imgFirst5.alpha = 1.0f
-                    imgFirst7.startAnimation(animAppear)
-                    imgFirst7.alpha = 1.0f
-                    imgFirst8.startAnimation(animAppear)
-                    imgFirst8.alpha = 1.0f
-                }
-                else {
-                    imgSecond0.startAnimation(animAppear)
-                    imgSecond0.alpha = 1.0f
-                    imgSecond1.startAnimation(animAppear)
-                    imgSecond1.alpha = 1.0f
-                    imgSecond3.startAnimation(animAppear)
-                    imgSecond3.alpha = 1.0f
-                    imgSecond4.startAnimation(animAppear)
-                    imgSecond4.alpha = 1.0f
-                    imgSecond6.startAnimation(animAppear)
-                    imgSecond6.alpha = 1.0f
-                    imgSecond7.startAnimation(animAppear)
-                    imgSecond7.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "6"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img6)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img6)
+                    }
                 }
             }
             7->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst0.startAnimation(animAppear)
-                    imgFirst0.alpha = 1.0f
-                    imgFirst1.startAnimation(animAppear)
-                    imgFirst1.alpha = 1.0f
-                    imgFirst3.startAnimation(animAppear)
-                    imgFirst3.alpha = 1.0f
-                    imgFirst4.startAnimation(animAppear)
-                    imgFirst4.alpha = 1.0f
-                    imgFirst6.startAnimation(animAppear)
-                    imgFirst6.alpha = 1.0f
-                    imgFirst7.startAnimation(animAppear)
-                    imgFirst7.alpha = 1.0f
-                    imgFirst8.startAnimation(animAppear)
-                    imgFirst8.alpha = 1.0f
-                }
-                else {
-                    imgSecond0.startAnimation(animAppear)
-                    imgSecond0.alpha = 1.0f
-                    imgSecond1.startAnimation(animAppear)
-                    imgSecond1.alpha = 1.0f
-                    imgSecond3.startAnimation(animAppear)
-                    imgSecond3.alpha = 1.0f
-                    imgSecond4.startAnimation(animAppear)
-                    imgSecond4.alpha = 1.0f
-                    imgSecond6.startAnimation(animAppear)
-                    imgSecond6.alpha = 1.0f
-                    imgSecond7.startAnimation(animAppear)
-                    imgSecond7.alpha = 1.0f
-                    imgSecond8.startAnimation(animAppear)
-                    imgSecond8.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "7"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img7)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img7)
+                    }
                 }
             }
             8->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst0.startAnimation(animAppear)
-                    imgFirst0.alpha = 1.0f
-                    imgFirst1.startAnimation(animAppear)
-                    imgFirst1.alpha = 1.0f
-                    imgFirst3.startAnimation(animAppear)
-                    imgFirst3.alpha = 1.0f
-                    imgFirst4.startAnimation(animAppear)
-                    imgFirst4.alpha = 1.0f
-                    imgFirst5.startAnimation(animAppear)
-                    imgFirst5.alpha = 1.0f
-                    imgFirst6.startAnimation(animAppear)
-                    imgFirst6.alpha = 1.0f
-                    imgFirst7.startAnimation(animAppear)
-                    imgFirst7.alpha = 1.0f
-                    imgFirst8.startAnimation(animAppear)
-                    imgFirst8.alpha = 1.0f
-                }
-                else {
-                    imgSecond0.startAnimation(animAppear)
-                    imgSecond0.alpha = 1.0f
-                    imgSecond1.startAnimation(animAppear)
-                    imgSecond1.alpha = 1.0f
-                    imgSecond3.startAnimation(animAppear)
-                    imgSecond3.alpha = 1.0f
-                    imgSecond4.startAnimation(animAppear)
-                    imgSecond4.alpha = 1.0f
-                    imgSecond5.startAnimation(animAppear)
-                    imgSecond5.alpha = 1.0f
-                    imgSecond6.startAnimation(animAppear)
-                    imgSecond6.alpha = 1.0f
-                    imgSecond7.startAnimation(animAppear)
-                    imgSecond7.alpha = 1.0f
-                    imgSecond8.startAnimation(animAppear)
-                    imgSecond8.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "8"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img8)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img8)
+                    }
                 }
             }
             9->{
                 clearTopImg(view)
-                if(view == firstNumber) {
-                    imgFirst0.startAnimation(animAppear)
-                    imgFirst0.alpha = 1.0f
-                    imgFirst1.startAnimation(animAppear)
-                    imgFirst1.alpha = 1.0f
-                    imgFirst2.startAnimation(animAppear)
-                    imgFirst2.alpha = 1.0f
-                    imgFirst3.startAnimation(animAppear)
-                    imgFirst3.alpha = 1.0f
-                    imgFirst4.startAnimation(animAppear)
-                    imgFirst4.alpha = 1.0f
-                    imgFirst5.startAnimation(animAppear)
-                    imgFirst5.alpha = 1.0f
-                    imgFirst6.startAnimation(animAppear)
-                    imgFirst6.alpha = 1.0f
-                    imgFirst7.startAnimation(animAppear)
-                    imgFirst7.alpha = 1.0f
-                    imgFirst8.startAnimation(animAppear)
-                    imgFirst8.alpha = 1.0f
-                }
-                else {
-                    imgSecond0.startAnimation(animAppear)
-                    imgSecond0.alpha = 1.0f
-                    imgSecond1.startAnimation(animAppear)
-                    imgSecond1.alpha = 1.0f
-                    imgSecond2.startAnimation(animAppear)
-                    imgSecond2.alpha = 1.0f
-                    imgSecond3.startAnimation(animAppear)
-                    imgSecond3.alpha = 1.0f
-                    imgSecond4.startAnimation(animAppear)
-                    imgSecond4.alpha = 1.0f
-                    imgSecond5.startAnimation(animAppear)
-                    imgSecond5.alpha = 1.0f
-                    imgSecond6.startAnimation(animAppear)
-                    imgSecond6.alpha = 1.0f
-                    imgSecond7.startAnimation(animAppear)
-                    imgSecond7.alpha = 1.0f
-                    imgSecond8.startAnimation(animAppear)
-                    imgSecond8.alpha = 1.0f
+                if(operator.text.toString() == "×" || operator.text.toString() == "÷"){
+                    imgShow2.visibility = View.GONE
+                    txtShow.visibility = View.VISIBLE
+                    txtShow.text = "9"
+                    txtShow.startAnimation(animAppear)
+                }else {
+                    if (view == firstNumber) {
+                        imgShow1.startAnimation(animAppear)
+                        imgShow1.alpha = 1.0f
+                        imgShow1.setImageResource(R.drawable.test_img9)
+                    } else {
+                        imgShow2.startAnimation(animAppear)
+                        imgShow2.alpha = 1.0f
+                        imgShow2.setImageResource(R.drawable.test_img9)
+                    }
                 }
             }
             0->{
@@ -407,33 +344,12 @@ class MainActivity : AppCompatActivity() {
 
     //화면 위쪽에 그려진 것들 지워주기 - 왼쪽/오른쪽 선택
     private fun clearTopImg(view: EditText){
-        if(view == firstNumber){
-            imgFirst0.alpha = 0.0f
-            imgFirst1.alpha = 0.0f
-            imgFirst2.alpha = 0.0f
-            imgFirst3.alpha = 0.0f
-            imgFirst4.alpha = 0.0f
-            imgFirst5.alpha = 0.0f
-            imgFirst6.alpha = 0.0f
-            imgFirst7.alpha = 0.0f
-            imgFirst8.alpha = 0.0f
-            imgFirst9.alpha = 0.0f
-            imgFirst10.alpha = 0.0f
-        }
-        else{
-            imgSecond0.alpha = 0.0f
-            imgSecond1.alpha = 0.0f
-            imgSecond2.alpha = 0.0f
-            imgSecond3.alpha = 0.0f
-            imgSecond4.alpha = 0.0f
-            imgSecond5.alpha = 0.0f
-            imgSecond6.alpha = 0.0f
-            imgSecond7.alpha = 0.0f
-            imgSecond8.alpha = 0.0f
-            imgSecond9.alpha = 0.0f
-            imgSecond10.alpha = 0.0f
-            imgSecond11.alpha = 0.0f
-            imgSecond12.alpha = 0.0f
+        if(view == firstNumber)
+            imgShow1.alpha = 0.0f
+        else {
+            txtShow.visibility = View.GONE
+            imgShow2.visibility = View.VISIBLE
+            imgShow2.alpha = 0.0f
         }
     }
 
@@ -483,8 +399,12 @@ class MainActivity : AppCompatActivity() {
                 calculateAnim.multiply(firstNum, secondNum, result)
             }
             "÷" -> {
-                result = firstNum / secondNum
-                calculateAnim.divide(firstNum, secondNum, result)
+                if(secondNum == 0){
+                    
+                }else {
+                    result = firstNum / secondNum
+                    calculateAnim.divide(firstNum, secondNum, result)
+                }
             }
         }
     }
@@ -624,6 +544,9 @@ class MainActivity : AppCompatActivity() {
                         delay(700)
                         appearImg(testImg8, firstNum)
                     }
+                    0 -> {
+
+                    }
                 }
                 delay(700)
                 appearResult(result, 0)
@@ -733,6 +656,9 @@ class MainActivity : AppCompatActivity() {
                         appearImg(testImg7, secondNum)
                         delay(700)
                         appearImg(testImg8, secondNum)
+                    }
+                    0 -> {
+
                     }
                 }
                 delay(700)
