@@ -278,7 +278,7 @@
         android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -293,34 +293,46 @@
 
             <ImageButton
                 android:id="@+id/btnOne"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number1" />
 
             <ImageButton
                 android:id="@+id/btnFour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number4" />
 
             <ImageButton
                 android:id="@+id/btnSeven"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number7" />
 
             <ImageButton
                 android:id="@+id/blank1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
         </LinearLayout>
 
@@ -332,35 +344,47 @@
 
             <ImageButton
                 android:id="@+id/btnTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number2" />
 
             <ImageButton
                 android:id="@+id/btnFive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number5" />
 
             <ImageButton
                 android:id="@+id/btnEight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number8" />
 
             <ImageButton
                 android:id="@+id/btnZero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number0" />
 
         </LinearLayout>
 
@@ -372,34 +396,46 @@
 
             <ImageButton
                 android:id="@+id/btnThree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number3" />
 
             <ImageButton
                 android:id="@+id/btnSix"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number6" />
 
             <ImageButton
                 android:id="@+id/btnNine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/number9" />
 
             <ImageButton
                 android:id="@+id/blank2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
         </LinearLayout>
@@ -414,42 +450,57 @@
             <ImageButton
                 android:id="@+id/btnPlus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/operator1" />
 
             <ImageButton
                 android:id="@+id/btnMinus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/operator2" />
 
             <ImageButton
                 android:id="@+id/btnMultiply"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/operator3" />
 
             <ImageButton
                 android:id="@+id/btnDivide"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/operator4" />
 
             <ImageButton
                 android:id="@+id/btnResult"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:background="@drawable/keyboard_button_background"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/operator5" />
         </LinearLayout>
 
     </LinearLayout>

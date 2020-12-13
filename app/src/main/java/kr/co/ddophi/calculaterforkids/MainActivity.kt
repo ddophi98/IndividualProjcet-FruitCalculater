@@ -400,7 +400,7 @@ class MainActivity : AppCompatActivity() {
             }
             "÷" -> {
                 if(secondNum == 0){
-                    
+
                 }else {
                     result = firstNum / secondNum
                     calculateAnim.divide(firstNum, secondNum, result)
