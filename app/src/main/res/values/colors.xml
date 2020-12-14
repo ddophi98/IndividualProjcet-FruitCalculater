@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="keyBoardButtonBackgroundColor">#E2F6F4</color>
+    <color name="numberShowColor">#B361FF</color>
 </resources>

@@ -2,6 +2,7 @@ package kr.co.ddophi.calculaterforkids
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val divideOperator = 13
     var isAnimRunning = false
     lateinit var resultAnimJob : Job
+    var toast:Toast? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +29,20 @@ class MainActivity : AppCompatActivity() {
         blank1.setOnClickListener {
            clearBottomImg()
         }
+    }
+
+    private fun showToast(num : Int){
+        if(toast != null)
+            toast!!.cancel()
+        when(num){
+            0 -> toast = Toast.makeText(this, "숫자를 입력해주세요!", Toast.LENGTH_SHORT)
+            1 -> toast = Toast.makeText(this, "첫번째 숫자를 입력해주세요!", Toast.LENGTH_SHORT)
+            2 -> toast = Toast.makeText(this, "연산 기호를 입력해주세요!", Toast.LENGTH_SHORT)
+            3 -> toast = Toast.makeText(this, "두번째 숫자를 입력해주세요!", Toast.LENGTH_SHORT)
+            4 -> toast = Toast.makeText(this, "0으로는 나눌 수 없어요!", Toast.LENGTH_SHORT)
+        }
+        toast!!.setGravity(Gravity.CENTER, 0, 0)
+        toast!!.show()
     }
 
     //안드로이드 키보드 숨기기
@@ -55,7 +71,10 @@ class MainActivity : AppCompatActivity() {
                     secondNumber.setText(idx.toString())
                     moveFocus(secondNumber)
                     imgAppearAnim(secondNumber, idx)
-                }else if(!firstNumber.hasFocus() && !secondNumber.hasFocus() && !operator.hasFocus()){
+                }else if(operator.hasFocus()) {
+                    showToast(2)
+                }
+                else if(!firstNumber.hasFocus() && !secondNumber.hasFocus() && !operator.hasFocus()){
                     clearAll()
                     firstNumber.setText(idx.toString())
                     moveFocus(firstNumber)
@@ -70,6 +89,8 @@ class MainActivity : AppCompatActivity() {
                 operator.setText("＋")
                 moveFocus(operator)
                 imgAppearAnim(operator, plusOperator)
+            }else if(firstNumber.hasFocus() || secondNumber.hasFocus()){
+                showToast(0)
             }
         }
         btnMinus.setOnClickListener {
@@ -78,6 +99,8 @@ class MainActivity : AppCompatActivity() {
                 operator.setText("－")
                 moveFocus(operator)
                 imgAppearAnim(operator, minusOperator)
+            }else if(firstNumber.hasFocus() || secondNumber.hasFocus()){
+                showToast(0)
             }
         }
         btnMultiply.setOnClickListener {
@@ -90,6 +113,8 @@ class MainActivity : AppCompatActivity() {
                 if(secondNumber.text.isNotEmpty()){
                     imgAppearAnim(secondNumber, secondNumber.text.toString().toInt())
                 }
+            }else if(firstNumber.hasFocus() || secondNumber.hasFocus()){
+                showToast(0)
             }
         }
         btnDivide.setOnClickListener {
@@ -102,16 +127,18 @@ class MainActivity : AppCompatActivity() {
                 if(secondNumber.text.isNotEmpty()){
                     imgAppearAnim(secondNumber, secondNumber.text.toString().toInt())
                 }
+            }else if(firstNumber.hasFocus() || secondNumber.hasFocus()){
+                showToast(0)
             }
         }
 
         btnResult.setOnClickListener {
             if(firstNumber.text.toString() == ""){
-
+                showToast(1)
             }else if(operator.text.toString() == ""){
-
+                showToast(2)
             }else if(secondNumber.text.toString() == ""){
-
+                showToast(3)
             }else if(!isAnimRunning){
                 clearBottomImg()
                 showResult()
@@ -329,24 +356,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             plusOperator->{
-                txtOperator.startAnimation(animAppear)
-                txtOperator.text = "＋"
-                txtOperator.visibility = View.VISIBLE
+                operatorShow.startAnimation(animAppear)
+                operatorShow.setImageResource(R.drawable.operator1)
+                operatorShow.visibility = View.VISIBLE
             }
             minusOperator->{
-                txtOperator.startAnimation(animAppear)
-                txtOperator.text = "－"
-                txtOperator.visibility = View.VISIBLE
+                operatorShow.startAnimation(animAppear)
+                operatorShow.setImageResource(R.drawable.operator2)
+                operatorShow.visibility = View.VISIBLE
             }
             multiplyOperator->{
-                txtOperator.startAnimation(animAppear)
-                txtOperator.text = "×"
-                txtOperator.visibility = View.VISIBLE
+                operatorShow.startAnimation(animAppear)
+                operatorShow.setImageResource(R.drawable.operator3)
+                operatorShow.visibility = View.VISIBLE
             }
             divideOperator->{
-                txtOperator.startAnimation(animAppear)
-                txtOperator.text = "÷"
-                txtOperator.visibility = View.VISIBLE
+                operatorShow.startAnimation(animAppear)
+                operatorShow.setImageResource(R.drawable.operator4)
+                operatorShow.visibility = View.VISIBLE
             }
         }
     }
@@ -384,7 +411,7 @@ class MainActivity : AppCompatActivity() {
         clearBottomImg()
         clearTopImg(firstNumber)
         clearTopImg(secondNumber)
-        txtOperator.visibility = View.INVISIBLE
+        operatorShow.visibility = View.INVISIBLE
         firstNumber.setText("")
         operator.setText("")
         secondNumber.setText("")
@@ -395,7 +422,7 @@ class MainActivity : AppCompatActivity() {
         val firstNum = firstNumber.text.toString().toInt()
         val secondNum = secondNumber.text.toString().toInt()
         val op = operator.text.toString()
-        var result : Int? = null
+        val result: Int?
         val calculateAnim = CalculateAnimation()
 
         when(op){
@@ -413,7 +440,7 @@ class MainActivity : AppCompatActivity() {
             }
             "÷" -> {
                 if(secondNum == 0){
-
+                    showToast(4)
                 }else {
                     result = firstNum / secondNum
                     calculateAnim.divide(firstNum, secondNum, result)
@@ -423,7 +450,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //계산 과정 보여주는 애니메이션 모음
-    inner class CalculateAnimation() {
+    inner class CalculateAnimation {
 
         private val animChangeTime1 = 600L
         private val animChangeTime2 = 600L
@@ -445,7 +472,7 @@ class MainActivity : AppCompatActivity() {
                     numForImg.text = "$num"
                     delay(animChangeTime1)
                 }
-                appearResult(result, 0)
+                appearResult(result, 0, false)
                 delay(1000)
                 isAnimRunning = false
             }
@@ -467,7 +494,7 @@ class MainActivity : AppCompatActivity() {
                     numForImg.text = "$num"
                     delay(animChangeTime1)
                 }
-                appearResult(result, 0)
+                appearResult(result, 0, false)
                 delay(1000)
                 isAnimRunning = false
             }
@@ -591,7 +618,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 delay(animChangeTime2)
-                appearResult(result, 0)
+                appearResult(result, 0, false)
                 delay(1000)
                 isAnimRunning = false
             }
@@ -604,8 +631,6 @@ class MainActivity : AppCompatActivity() {
                 if(firstNum == 0 || (firstNum < secondNum)){
                     testImg0.visibility = View.GONE
                     appearImg(testImg7, 0)
-                }else if(secondNum == 0){
-
                 }else {
                     when (result) {
                         1 -> {
@@ -718,7 +743,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 delay(animChangeTime2)
-                appearResult(result, remain)
+                appearResult(result, remain, true)
                 delay(1000)
                 isAnimRunning = false
             }
@@ -760,14 +785,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         //아래쪽 부분에 결과값 보여주기
-        private fun appearResult(num: Int, remain: Int){
+        private fun appearResult(num: Int, remain: Int, isDivide: Boolean){
             val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_anim)
             txtResult.startAnimation(animAppear)
             txtResult.text = "= "
             txtResult.append("$num")
-            txtResult.append(" (나머지: ")
-            txtResult.append("$remain")
-            txtResult.append(")")
+            if(isDivide) {
+                txtResult.append(" (나머지: ")
+                txtResult.append("$remain")
+                txtResult.append(")")
+            }
         }
     }
 }
