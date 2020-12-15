@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">어린이 계산기</string>
+    <string name="remainder">나머지</string>
+    <string name="hint0">첫번째 숫자</string>
+    <string name="hint1">연산 기호</string>
+    <string name="hint2">두번째 숫자</string>
+    <string name="toastMessage0">숫자를 입력해주세요!</string>
+    <string name="toastMessage1">첫번째 숫자를 입력해주세요!</string>
+    <string name="toastMessage2">연산 기호를 입력해주세요!</string>
+    <string name="toastMessage3">두번째 숫자를 입력해주세요!</string>
+    <string name="toastMessage4">0으로는 나눌 수 없어요!</string>
+</resources>

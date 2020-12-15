@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">Calculater for kids</string>
+    <string name="app_name">Calculator for Kids</string>
+    <string name="remainder">remainder</string>
+    <string name="hint0">First Number</string>
+    <string name="hint1">Operator</string>
+    <string name="hint2">Second Number</string>
+    <string name="toastMessage0">Please enter a number!</string>
+    <string name="toastMessage1">Please enter the first number!</string>
+    <string name="toastMessage2">Please enter an operator!</string>
+    <string name="toastMessage3">Please enter the second number!</string>
+    <string name="toastMessage4">Can not be divided by 0!</string>
 </resources>
