@@ -6,6 +6,9 @@ import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import java.util.*
@@ -19,12 +22,18 @@ class MainActivity : AppCompatActivity() {
     private var isAnimRunning = false
     private var randomNum = 0
     private var toast:Toast? = null
+    private var isFruitShowed = arrayListOf(false, false, false, false, false)
     lateinit var resultAnimJob : Job
     lateinit var fruitList: ArrayList<ArrayList<Int>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        MobileAds.initialize(this) {}
+        val mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
 
         initFruitList()
         hideKeyboard()
@@ -61,7 +70,27 @@ class MainActivity : AppCompatActivity() {
     //어떤 과일을 보여줄지 랜덤으로 결정하기
     private fun setRandomNum(){
         val random = Random()
-        randomNum = random.nextInt(5)
+        var isAllTrue = true
+
+        for(i in isFruitShowed){
+            if(!i){
+                isAllTrue = false
+                break
+            }
+        }
+
+        if(isAllTrue){
+            for((idx, i) in isFruitShowed.withIndex()){
+                isFruitShowed[idx] = false
+            }
+        }
+
+        do {
+            randomNum = random.nextInt(5)
+        }
+        while(isFruitShowed[randomNum])
+
+        isFruitShowed[randomNum] = true
     }
 
     //안드로이드 키보드 숨기기
@@ -104,6 +133,9 @@ class MainActivity : AppCompatActivity() {
 
         btnCancel.setOnClickListener {
             clearAll()
+            firstNumber.clearFocus()
+            secondNumber.clearFocus()
+            operator.clearFocus()
         }
 
         btnPlus.setOnClickListener {
@@ -403,8 +435,9 @@ class MainActivity : AppCompatActivity() {
 
     //화면 위쪽에 그려진 것들 지워주기 - 왼쪽/오른쪽 선택
     private fun clearTopImg(view: EditText){
-        if(view == firstNumber)
+        if(view == firstNumber) {
             imgShow1.alpha = 0.0f
+        }
         else {
             txtShow.visibility = View.GONE
             imgShow2.visibility = View.VISIBLE
@@ -419,13 +452,14 @@ class MainActivity : AppCompatActivity() {
             resultAnimJob.cancel()
             isAnimRunning = false
         }
-        numForImg.text = ""
         txtResult.text = ""
         for(img in resultImg)
             img.alpha = 0.0f
         imgCalculate0.visibility = View.VISIBLE
         imgCalculate4.visibility = View.VISIBLE
         imgCalculate5.visibility = View.VISIBLE
+        imgCalculate6.visibility = View.VISIBLE
+        imgCalculate8.visibility = View.VISIBLE
         imgCalculate9.visibility = View.VISIBLE
     }
 
@@ -479,21 +513,27 @@ class MainActivity : AppCompatActivity() {
         private val animChangeTime1 = 600L
         private val animChangeTime2 = 600L
 
+        //가운데 이미지 크게 보이게 하기 위해 주변 이미지 없애주기
+        fun centerGone(){
+            imgCalculate0.visibility = View.GONE
+            imgCalculate5.visibility = View.GONE
+            imgCalculate6.visibility = View.GONE
+            imgCalculate8.visibility = View.GONE
+            imgCalculate9.visibility = View.GONE
+        }
+
         //더하기 애니메이션
         fun plus (firstNum : Int, secondNum : Int, result: Int) {
             var num = firstNum
             val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_fast_anim)
             resultAnimJob = GlobalScope.launch(Dispatchers.Main){
                 isAnimRunning = true
-                imgCalculate0.visibility = View.GONE
+                centerGone()
                 appearImg(imgCalculate7, num)
                 imgCalculate7.startAnimation(animAppear)
-                numForImg.text = "$num"
-                numForImg.startAnimation(animAppear)
                 delay(700)
                 for(i in 0 until secondNum){
                     appearImg(imgCalculate7, ++num)
-                    numForImg.text = "$num"
                     delay(animChangeTime1)
                 }
                 appearResult(result, 0, false)
@@ -507,15 +547,12 @@ class MainActivity : AppCompatActivity() {
             val animAppear = AnimationUtils.loadAnimation(applicationContext, R.anim.img_appear_fast_anim)
             resultAnimJob = GlobalScope.launch(Dispatchers.Main){
                 isAnimRunning = true
-                imgCalculate0.visibility = View.GONE
+                centerGone()
                 appearImg(imgCalculate7, num)
                 imgCalculate7.startAnimation(animAppear)
-                numForImg.text = "$num"
-                numForImg.startAnimation(animAppear)
                 delay(700)
                 for(i in 0 until secondNum){
                     appearImg(imgCalculate7, --num)
-                    numForImg.text = "$num"
                     delay(animChangeTime1)
                 }
                 appearResult(result, 0, false)
@@ -528,12 +565,12 @@ class MainActivity : AppCompatActivity() {
             resultAnimJob = GlobalScope.launch(Dispatchers.Main) {
                 isAnimRunning = true
                 if (firstNum == 0 || secondNum == 0) {
-                    imgCalculate0.visibility = View.GONE
+                    centerGone()
                     appearImg(imgCalculate7, 0)
                 } else{
                     when (secondNum) {
                         1 -> {
-                            imgCalculate0.visibility = View.GONE
+                            centerGone()
                             appearImg(imgCalculate7, firstNum)
                         }
                         2 -> {
@@ -658,7 +695,7 @@ class MainActivity : AppCompatActivity() {
                 }else {
                     when (result) {
                         1 -> {
-                            imgCalculate0.visibility = View.GONE
+                            centerGone()
                             appearImg(imgCalculate7, secondNum)
                         }
                         2 -> {

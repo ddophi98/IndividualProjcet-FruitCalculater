@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background8"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -70,6 +71,8 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="70dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,7 +134,7 @@
         android:id="@+id/middleLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:background="@drawable/background2"
         android:paddingTop="8dp">
 
@@ -284,19 +287,6 @@
             app:layout_constraintStart_toEndOf="@+id/imgCalculate8"
             app:layout_constraintTop_toBottomOf="@+id/imgCalculate0"
             app:srcCompat="@drawable/fruit_empty" />
-
-        <TextView
-            android:id="@+id/numForImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="serif-monospace"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtResult"
-            app:layout_constraintStart_toEndOf="@+id/imgCalculate7"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtResult"
@@ -538,4 +528,15 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-8327816292835621/1671703961"/>
+
 </LinearLayout>
