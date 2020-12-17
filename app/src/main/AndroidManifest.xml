@@ -19,10 +19,6 @@
         </activity>
 
         <activity android:name=".MainActivity"/>
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8327816292835621~2818454046" />
     </application>
 
 </manifest>
