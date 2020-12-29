@@ -1,4 +1,4 @@
-package kr.co.ddophi.calculaterforkids
+package kr.co.ddophi.calculatorforkids
 
 import android.os.Bundle
 import android.view.Gravity

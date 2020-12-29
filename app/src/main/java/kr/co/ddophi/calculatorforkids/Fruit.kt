@@ -1,4 +1,4 @@
-package kr.co.ddophi.calculaterforkids
+package kr.co.ddophi.calculatorforkids
 
 data class Fruit (
     val apple : ArrayList<Int> = arrayListOf(R.drawable.fruit_empty, R.drawable.apple1, R.drawable.apple2, R.drawable.apple3, R.drawable.apple4, R.drawable.apple5, R.drawable.apple6
