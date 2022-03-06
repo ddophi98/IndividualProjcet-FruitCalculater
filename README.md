@@ -3,6 +3,6 @@
 
 <div style="display:flex">
   <img width="200" src="https://user-images.githubusercontent.com/72330884/156919957-8774498c-f898-407f-9d40-24d25883f565.jpg">
-  <div width="50"/>
+  <div width="10"/>
   <img width="200" src="https://user-images.githubusercontent.com/72330884/156919967-185ba9a1-16fc-484e-a204-8246bf889e6b.jpg">
 </div>
