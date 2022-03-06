@@ -1,5 +1,6 @@
 # CalculaterForkids
 사칙 연산을 간단한 애니메이션으로 보여주는 어린이용 계산기입니다.
+플레이스토어: https://play.google.com/store/apps/details?id=kr.co.ddophi.calculatorforkids
 
 <div style="display:flex">
   <img width="200" src="https://user-images.githubusercontent.com/72330884/156920738-051c16d8-d92e-485d-9177-b8a09cd6e7d0.jpg">
