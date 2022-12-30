@@ -4,7 +4,11 @@
 Google Play: https://play.google.com/store/apps/details?id=kr.co.ddophi.calculatorforkids
 
 <div style="display:flex">
-  <img width="200" src="https://user-images.githubusercontent.com/72330884/156920738-051c16d8-d92e-485d-9177-b8a09cd6e7d0.jpg">
-  <img width="200" src="https://user-images.githubusercontent.com/72330884/156919957-8774498c-f898-407f-9d40-24d25883f565.jpg">
-  <img width="200" src="https://user-images.githubusercontent.com/72330884/156919967-185ba9a1-16fc-484e-a204-8246bf889e6b.jpg">
+  <img height="300" src="https://user-images.githubusercontent.com/72330884/210074604-2fd48142-a9f8-4ec6-b96d-949f25429711.gif">
+  <img height="300" src="https://user-images.githubusercontent.com/72330884/210074510-a9728c0c-dfac-49b3-818d-032593603f46.gif">
+</div>
+
+<div style="display:flex">
+  <img height="300" src="https://user-images.githubusercontent.com/72330884/210074215-22b3e5d6-9fa8-4e75-8e98-7b899ce6c671.gif">
+  <img height="300" src="https://user-images.githubusercontent.com/72330884/210074221-a2470daf-a63e-4a89-b77c-0298c5c6e3c8.gif">
 </div>
