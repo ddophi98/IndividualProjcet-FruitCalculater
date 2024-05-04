@@ -1,7 +1,7 @@
 # CalculaterForkids
 사칙 연산을 간단한 과일 애니메이션으로 보여주는 어린이용 계산기입니다.
 
-Google Play: https://play.google.com/store/apps/details?id=kr.co.ddophi.calculatorforkids
+~~Google Play: https://play.google.com/store/apps/details?id=kr.co.ddophi.calculatorforkids~~
 
 <div style="display:flex">
   <img height="300" src="https://user-images.githubusercontent.com/72330884/210074604-2fd48142-a9f8-4ec6-b96d-949f25429711.gif">
